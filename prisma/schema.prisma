@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int     @id @default(autoincrement())
+  email             String  @unique
+  username          String  @unique
+  name              String?
+  verificationToken String?
+
+  snippets Snippet[]
+
+  @@map("users")
+}
+
+model ProgrammingLanguage {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  snippets Snippet[]
+
+  @@map("programming_languages")
+}
+
+model Snippet {
+  id Int @id @default(autoincrement())
+
+  userId                Int
+  programmingLanguageId Int
+
+  // author   User @relation(fields: [authorId], references: [id])
+  user                User                @relation(fields: [userId], references: [id])
+  programmingLanguage ProgrammingLanguage @relation(fields: [programmingLanguageId], references: [id])
+
+  @@map("snippets")
+}
