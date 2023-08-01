@@ -8,6 +8,7 @@ import { AppResolver } from './app.resolver';
 import { AuthModule } from './auth/auth.module';
 import { IdentityModule } from './identity/identity.module';
 import { TestModule } from './test/test.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TestModule } from './test/test.module';
     AuthModule,
     IdentityModule,
     TestModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
