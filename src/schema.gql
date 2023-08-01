@@ -2,16 +2,44 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateTestInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Mutation {
+  createTest(createTestInput: CreateTestInput!): Test!
   register(registerUserInput: RegisterUserInput!): String!
+  removeTest(id: Int!): Test!
+  updateTest(updateTestInput: UpdateTestInput!): Test!
 }
 
 type Query {
   index: String!
+  test(id: Int!): Test!
+  users: [UserEntity!]!
 }
 
 input RegisterUserInput {
   email: String!
   password: String!
+  username: String!
+}
+
+type Test {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateTestInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+type UserEntity {
+  email: String!
+  id: Int!
+  name: String!
   username: String!
 }
