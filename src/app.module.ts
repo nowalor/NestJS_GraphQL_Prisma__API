@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { IdentityModule } from './identity/identity.module';
 import { TestModule } from './test/test.module';
 import { UsersModule } from './users/users.module';
+import { SnippetsModule } from './snippets/snippets.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersModule } from './users/users.module';
     IdentityModule,
     TestModule,
     UsersModule,
+    SnippetsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
