@@ -1,4 +1,9 @@
-import { PrismaClient, User } from '@prisma/client';
+import {
+  PrismaClient,
+  ProgrammingLanguage,
+  Snippet,
+  User,
+} from '@prisma/client';
 import { hashSync } from 'bcrypt';
 const prisma = new PrismaClient();
 
@@ -10,8 +15,15 @@ function hashPassword(password: string) {
   return hash;
 }
 
+function getRandomElement<T>(array: T[]): T {
+  const index = Math.floor(Math.random() * array.length);
+  return array[index];
+}
+
 async function main() {
-  await prisma.user.deleteMany();
+  const createdUsers: User[] = [];
+  const createdLanguages: ProgrammingLanguage[] = [];
+  const createdSnippets: Snippet[] = [];
 
   const usersToCreate: Omit<User, 'id'>[] = [
     {
@@ -51,16 +63,160 @@ async function main() {
     },
   ];
 
-  const createdUsers: User[] = [];
+  const languagesToCreate: Omit<ProgrammingLanguage, 'id'>[] = [
+    {
+      name: 'HTML',
+    },
+    {
+      name: 'CSS',
+    },
+    {
+      name: 'Python',
+    },
+    {
+      name: 'JavaScript',
+    },
+    {
+      name: 'PHP',
+    },
+  ];
+
+  const codeExamples = {
+    HTML: [
+      `
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>My Web Page</title>
+  </head>
+  <body>
+      <h1>Hello, World!</h1>
+  </body>
+  </html>
+  `,
+      `
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>My Web Page</title>
+  </head>
+  <body>
+      <h2>Welcome to my website!</h2>
+  </body>
+  </html>
+  `,
+    ],
+    CSS: [
+      `
+  body {
+    background-color: lightblue;
+  }
+  
+  h1 {
+    color: navy;
+  }
+  `,
+      `
+  body {
+    background-color: #f2f2f2;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  `,
+    ],
+    Python: [
+      `
+  def factorial(n):
+      if n == 0:
+          return 1
+      else:
+          return n * factorial(n-1)
+  `,
+      `
+  def fibonacci(n):
+      if n <= 0:
+          return "Invalid input"
+      elif n == 1:
+          return 0
+      elif n == 2:
+          return 1
+      else:
+          return fibonacci(n-1) + fibonacci(n-2)
+  `,
+    ],
+    JavaScript: [
+      `
+  const add = (a, b) => {
+      return a + b;
+  };
+  
+  console.log(add(2, 3)); // Output: 5
+  `,
+      `
+  const greet = (name) => {
+      console.log("Hello, " + name + "!");
+  };
+  
+  greet("Alice"); // Output: Hello, Alice!
+  `,
+    ],
+    PHP: [
+      `
+  <?php
+  $fruit = "Apple";
+  echo "I love $fruit";
+  ?>
+  `,
+      `
+  <?php
+  $name = "Bob";
+  echo "Hello, " . $name . "!";
+  ?>
+  `,
+    ],
+  };
 
   for (const userData of usersToCreate) {
     const createdUser = await prisma.user.create({
       data: userData,
     });
+
     createdUsers.push(createdUser);
   }
 
-  console.log({ createdUsers });
+  for (const languageData of languagesToCreate) {
+    const createdLanguage = await prisma.programmingLanguage.create({
+      data: languageData,
+    });
+
+    createdLanguages.push(createdLanguage);
+  }
+
+  // Create a few snippets for each user and programming language
+  for (const user of createdUsers) {
+    for (let i = 0; i < 5; i++) {
+      const snippetLangIndex = Math.floor(Math.random() * 5);
+
+      const snippetLang = languagesToCreate[snippetLangIndex].name;
+      console.log('test', snippetLangIndex);
+
+      const codeExample = getRandomElement(codeExamples[snippetLang]);
+
+      const createdSnippet = await prisma.snippet.create({
+        data: {
+          userId: user.id,
+          programmingLanguageId: snippetLangIndex + 1,
+          content: codeExample as string,
+        },
+      });
+
+      createdSnippets.push(createdSnippet);
+    }
+  }
+
+  console.log({ createdUsers, createdLanguages, createdSnippets });
 }
 
 main()

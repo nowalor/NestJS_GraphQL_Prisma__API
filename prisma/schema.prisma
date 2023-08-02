@@ -30,7 +30,8 @@ model ProgrammingLanguage {
 }
 
 model Snippet {
-  id Int @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
+  content String
 
   userId                Int
   programmingLanguageId Int
