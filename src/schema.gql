@@ -2,20 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateSnippetInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateTestInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
 type Mutation {
+  createSnippet(createSnippetInput: CreateSnippetInput!): Snippet!
   createTest(createTestInput: CreateTestInput!): Test!
   register(registerUserInput: RegisterUserInput!): String!
+  removeSnippet(id: Int!): Snippet!
   removeTest(id: Int!): Test!
+  updateSnippet(updateSnippetInput: UpdateSnippetInput!): Snippet!
   updateTest(updateTestInput: UpdateTestInput!): Test!
 }
 
 type Query {
   index: String!
+  snippet(id: Int!): Snippet!
+  snippets: [Snippet!]!
   test(id: Int!): Test!
   users: [UserEntity!]!
 }
@@ -26,9 +36,21 @@ input RegisterUserInput {
   username: String!
 }
 
+type Snippet {
+  content: String!
+  id: Int!
+  user: UserEntity
+}
+
 type Test {
   """Example field (placeholder)"""
   exampleField: Int!
+}
+
+input UpdateSnippetInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateTestInput {

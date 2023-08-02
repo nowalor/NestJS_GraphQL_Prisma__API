@@ -12,7 +12,11 @@ export class SnippetsService {
   }
 
   findAll() {
-    return `This action returns all snippets`;
+    return this.prisma.snippet.findMany({
+      include: {
+        user: true, // This will include the associated UserEntity for each Snippet
+      },
+    });
   }
 
   findOne(id: number) {
