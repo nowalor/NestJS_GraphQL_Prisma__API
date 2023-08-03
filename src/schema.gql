@@ -44,6 +44,7 @@ type Query {
   snippet(id: Int!): Snippet!
   snippets: [Snippet!]!
   test(id: Int!): Test!
+  user(username: String!): UserEntity!
   users: [UserEntity!]!
 }
 
