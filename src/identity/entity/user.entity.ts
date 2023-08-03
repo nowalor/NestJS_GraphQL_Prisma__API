@@ -11,6 +11,6 @@ export class UserEntity {
   @Field()
   username: string;
 
-  @Field()
+  @Field({ nullable: true })
   name?: string;
 }

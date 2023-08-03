@@ -12,9 +12,20 @@ input CreateTestInput {
   exampleField: Int!
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: UserEntity!
+}
+
 type Mutation {
   createSnippet(createSnippetInput: CreateSnippetInput!): Snippet!
   createTest(createTestInput: CreateTestInput!): Test!
+  login(loginInput: LoginInput!): LoginResponse!
   register(registerUserInput: RegisterUserInput!): UserEntity!
   removeSnippet(id: Int!): Snippet!
   removeTest(id: Int!): Test!
@@ -69,6 +80,6 @@ input UpdateTestInput {
 type UserEntity {
   email: String!
   id: Int!
-  name: String!
+  name: String
   username: String!
 }
