@@ -14,7 +14,8 @@ export class SnippetsService {
   findAll() {
     return this.prisma.snippet.findMany({
       include: {
-        user: true, // This will include the associated UserEntity for each Snippet
+        user: true,
+        programmingLanguage: true,
       },
     });
   }

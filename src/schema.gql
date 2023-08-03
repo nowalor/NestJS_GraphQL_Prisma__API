@@ -15,15 +15,21 @@ input CreateTestInput {
 type Mutation {
   createSnippet(createSnippetInput: CreateSnippetInput!): Snippet!
   createTest(createTestInput: CreateTestInput!): Test!
-  register(registerUserInput: RegisterUserInput!): String!
+  register(registerUserInput: RegisterUserInput!): UserEntity!
   removeSnippet(id: Int!): Snippet!
   removeTest(id: Int!): Test!
   updateSnippet(updateSnippetInput: UpdateSnippetInput!): Snippet!
   updateTest(updateTestInput: UpdateTestInput!): Test!
 }
 
+type ProgrammingLanguage {
+  id: Int!
+  name: String!
+}
+
 type Query {
   index: String!
+  languages: [ProgrammingLanguage!]!
   snippet(id: Int!): Snippet!
   snippets: [Snippet!]!
   test(id: Int!): Test!
@@ -39,7 +45,8 @@ input RegisterUserInput {
 type Snippet {
   content: String!
   id: Int!
-  user: UserEntity
+  programmingLanguage: ProgrammingLanguage!
+  user: UserEntity!
 }
 
 type Test {

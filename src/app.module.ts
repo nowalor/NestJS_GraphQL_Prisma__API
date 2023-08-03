@@ -10,6 +10,7 @@ import { IdentityModule } from './identity/identity.module';
 import { TestModule } from './test/test.module';
 import { UsersModule } from './users/users.module';
 import { SnippetsModule } from './snippets/snippets.module';
+import { LanguagesModule } from './languages/languages.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SnippetsModule } from './snippets/snippets.module';
     TestModule,
     UsersModule,
     SnippetsModule,
+    LanguagesModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

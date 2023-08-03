@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { UserEntity } from 'src/identity/entity/user.entity';
+import { ProgrammingLanguage } from 'src/languages/entity/programming-language.entity';
 
 @ObjectType()
 export class Snippet {
@@ -9,6 +10,9 @@ export class Snippet {
   @Field()
   content: string;
 
-  @Field(() => UserEntity, { nullable: true })
+  @Field(() => UserEntity)
   user: UserEntity;
+
+  @Field(() => ProgrammingLanguage)
+  programmingLanguage: ProgrammingLanguage;
 }
