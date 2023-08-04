@@ -10,6 +10,13 @@ export class IdentityService {
       where: {
         id: userId,
       },
+      include: {
+        snippets: {
+          include: {
+            programmingLanguage: true,
+          },
+        },
+      },
     });
   }
 }

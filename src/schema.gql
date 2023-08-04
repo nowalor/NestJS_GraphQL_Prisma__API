@@ -12,6 +12,14 @@ input CreateTestInput {
   exampleField: Int!
 }
 
+type IdentityEntity {
+  email: String!
+  id: Int!
+  name: String
+  snippets: [Snippet!]!
+  username: String!
+}
+
 input LoginInput {
   password: String!
   username: String!
@@ -39,7 +47,7 @@ type ProgrammingLanguage {
 }
 
 type Query {
-  identity: UserEntity!
+  identity: IdentityEntity!
   index: String!
   languages: [ProgrammingLanguage!]!
   snippet(id: Int!): Snippet!
