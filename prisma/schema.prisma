@@ -14,6 +14,7 @@ model User {
   username          String  @unique
   name              String?
   verificationToken String?
+  profileImgUrl     String?
 
   snippets Snippet[]
 
