@@ -39,6 +39,7 @@ type ProgrammingLanguage {
 }
 
 type Query {
+  identity: UserEntity!
   index: String!
   languages: [ProgrammingLanguage!]!
   snippet(id: Int!): Snippet!
