@@ -29,7 +29,13 @@ export class SnippetsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} snippet`;
+    return this.prisma.snippet.findFirst({
+      where: { id },
+      include: {
+        programmingLanguage: true,
+        user: true,
+      },
+    });
   }
 
   update(id: number, updateSnippetInput: UpdateSnippetInput) {
