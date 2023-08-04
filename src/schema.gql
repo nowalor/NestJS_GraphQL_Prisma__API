@@ -3,8 +3,8 @@
 # ------------------------------------------------------
 
 input CreateSnippetInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  content: String!
+  programmingLanguageId: Int!
 }
 
 input CreateTestInput {
@@ -82,9 +82,9 @@ type Test {
 }
 
 input UpdateSnippetInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  content: String
   id: Int!
+  programmingLanguageId: Int
 }
 
 input UpdateTestInput {

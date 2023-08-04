@@ -8,7 +8,15 @@ export class SnippetsService {
   constructor(private prisma: PrismaService) {}
 
   create(createSnippetInput: CreateSnippetInput, userId: number) {
-    return 'This action adds a new snippet';
+    return this.prisma.snippet.create({
+      data: {
+        ...createSnippetInput,
+        userId,
+      },
+      include: {
+        programmingLanguage: true,
+      },
+    });
   }
 
   findAll() {
