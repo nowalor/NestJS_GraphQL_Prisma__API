@@ -7,7 +7,7 @@ import { PrismaService } from 'prisma/prisma.service';
 export class SnippetsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createSnippetInput: CreateSnippetInput) {
+  create(createSnippetInput: CreateSnippetInput, userId: number) {
     return 'This action adds a new snippet';
   }
 

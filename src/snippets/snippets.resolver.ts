@@ -1,16 +1,24 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { SnippetsService } from './snippets.service';
 import { Snippet } from './entities/snippet.entity';
 import { CreateSnippetInput } from './dto/create-snippet.input';
 import { UpdateSnippetInput } from './dto/update-snippet.input';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt.guard';
 
 @Resolver(() => Snippet)
 export class SnippetsResolver {
   constructor(private readonly snippetsService: SnippetsService) {}
 
   @Mutation(() => Snippet)
-  createSnippet(@Args('createSnippetInput') createSnippetInput: CreateSnippetInput) {
-    return this.snippetsService.create(createSnippetInput);
+  @UseGuards(JwtAuthGuard)
+  createSnippet(
+    @Args('createSnippetInput') createSnippetInput: CreateSnippetInput,
+    @Context() context,
+  ) {
+    const { userId } = context.req.user;
+
+    return this.snippetsService.create(createSnippetInput, userId);
   }
 
   @Query(() => [Snippet], { name: 'snippets' })
@@ -24,8 +32,13 @@ export class SnippetsResolver {
   }
 
   @Mutation(() => Snippet)
-  updateSnippet(@Args('updateSnippetInput') updateSnippetInput: UpdateSnippetInput) {
-    return this.snippetsService.update(updateSnippetInput.id, updateSnippetInput);
+  updateSnippet(
+    @Args('updateSnippetInput') updateSnippetInput: UpdateSnippetInput,
+  ) {
+    return this.snippetsService.update(
+      updateSnippetInput.id,
+      updateSnippetInput,
+    );
   }
 
   @Mutation(() => Snippet)
