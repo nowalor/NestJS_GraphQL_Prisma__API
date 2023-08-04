@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
+import { UpdateIdentityInput } from './dto/update-identity.input';
 
 @Injectable()
 export class IdentityService {
@@ -41,4 +42,6 @@ export class IdentityService {
       },
     };
   }
+
+  update(updateIdentityInput: UpdateIdentityInput) {}
 }
