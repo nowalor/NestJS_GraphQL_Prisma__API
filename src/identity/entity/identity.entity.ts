@@ -1,9 +1,9 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, Int } from '@nestjs/graphql';
 import { UserEntity } from './user.entity';
-import { Snippet } from 'src/snippets/entities/snippet.entity';
+import { PaginatedSnippetsEntity } from 'src/snippets/entities/paginated-snippets.entity';
 
 @ObjectType()
 export class IdentityEntity extends UserEntity {
-  @Field(() => [Snippet])
-  snippets: [Snippet];
+  @Field(() => PaginatedSnippetsEntity)
+  snippets: [PaginatedSnippetsEntity];
 }

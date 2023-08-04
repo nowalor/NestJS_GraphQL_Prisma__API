@@ -16,7 +16,7 @@ type IdentityEntity {
   email: String!
   id: Int!
   name: String
-  snippets: [Snippet!]!
+  snippets: PaginatedSnippetsEntity!
   username: String!
 }
 
@@ -41,13 +41,19 @@ type Mutation {
   updateTest(updateTestInput: UpdateTestInput!): Test!
 }
 
+type PaginatedSnippetsEntity {
+  items: [Snippet!]!
+  total: Int!
+  totalPages: Int!
+}
+
 type ProgrammingLanguage {
   id: Int!
   name: String!
 }
 
 type Query {
-  identity: IdentityEntity!
+  identity(snippetPage: Float): IdentityEntity!
   index: String!
   languages: [ProgrammingLanguage!]!
   snippet(id: Int!): Snippet!
