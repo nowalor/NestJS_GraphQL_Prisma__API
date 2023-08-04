@@ -10,8 +10,6 @@ const prisma = new PrismaClient();
 function hashPassword(password: string) {
   const hash = hashSync(password, 10);
 
-  console.log({ hash });
-
   return hash;
 }
 

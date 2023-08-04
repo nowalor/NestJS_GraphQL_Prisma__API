@@ -9,9 +9,9 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  findOne(email: string) {
+  findOne(username: string) {
     return this.prisma.user.findFirst({
-      where: { email },
+      where: { username },
     });
   }
 }

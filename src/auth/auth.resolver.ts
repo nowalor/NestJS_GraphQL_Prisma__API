@@ -17,10 +17,8 @@ export class AuthResolver {
   }
 
   @Mutation(() => LoginResponse)
-  // @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard)
   login(@Args('loginInput') dto: LoginInput, @Context() context) {
-    console.log({ test: context });
-
     return this.authService.login(dto);
   }
 }

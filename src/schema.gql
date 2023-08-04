@@ -13,8 +13,8 @@ input CreateTestInput {
 }
 
 input LoginInput {
-  email: String!
   password: String!
+  username: String!
 }
 
 type LoginResponse {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { RegisterUserInput } from './dto/register-user.input';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'prisma/prisma.service';
@@ -14,12 +14,10 @@ export class AuthService {
     private jtwService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string) {
-    const user = await this.usersService.findOne(email);
-    console.log('validate user line 19 user:', user);
+  async validateUser(username: string, password: string) {
+    const user = await this.usersService.findOne(username);
 
     const match = bcrypt.compare(password, user.password);
-    console.log('validate user line 19 match:', match);
 
     if (!match) {
       throw Error('Match not found auth.service line 21');
@@ -39,21 +37,16 @@ export class AuthService {
   async login(dto: LoginInput) {
     const user = await this.prisma.user.findFirst({
       where: {
-        email: dto.email,
+        username: dto.username,
       },
     });
 
     const { id, email, username, name } = user;
 
-    const match = bcrypt.compare(dto.password, user.password);
-
-    console.log({
-      password1: dto.password,
-      password2: user.password,
-    });
+    const match = await bcrypt.compare(dto.password, user.password);
 
     if (!match) {
-      return { error: 'waa' };
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const token = this.jtwService.sign({
