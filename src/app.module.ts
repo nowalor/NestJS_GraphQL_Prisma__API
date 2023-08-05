@@ -11,9 +11,14 @@ import { TestModule } from './test/test.module';
 import { UsersModule } from './users/users.module';
 import { SnippetsModule } from './snippets/snippets.module';
 import { LanguagesModule } from './languages/languages.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '../storage'),
+      serveRoot: '/assets',
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
