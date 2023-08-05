@@ -23,7 +23,7 @@ async function main() {
   const createdLanguages: ProgrammingLanguage[] = [];
   const createdSnippets: Snippet[] = [];
 
-  const usersToCreate: Omit<User, 'id'>[] = [
+  const usersToCreate: Omit<User, 'id' | 'profileImgUrl'>[] = [
     {
       email: 'alice@prisma.io',
       password: hashPassword('password1'),
