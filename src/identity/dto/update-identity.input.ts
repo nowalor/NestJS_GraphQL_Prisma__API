@@ -1,7 +1,7 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
-@ObjectType()
+@InputType()
 export class UpdateIdentityInput {
-  @Field(() => Int, { description: 'example field, replace later' })
-  exampleField: number;
+  @Field()
+  profilePicture: String;
 }

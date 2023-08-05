@@ -43,5 +43,7 @@ export class IdentityService {
     };
   }
 
-  update(updateIdentityInput: UpdateIdentityInput) {}
+  async update(updateIdentityInput: UpdateIdentityInput) {
+    // Code goes here
+  }
 }

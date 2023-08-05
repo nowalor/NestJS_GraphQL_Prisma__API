@@ -37,6 +37,8 @@ type Mutation {
   register(registerUserInput: RegisterUserInput!): UserEntity!
   removeSnippet(id: Int!): Snippet!
   removeTest(id: Int!): Test!
+  singleUpload(file: Upload!): Boolean!
+  updateIdentity(updateIdentityInput: UpdateIdentityInput!): String!
   updateSnippet(updateSnippetInput: UpdateSnippetInput!): Snippet!
   updateTest(updateTestInput: UpdateTestInput!): Test!
 }
@@ -81,6 +83,10 @@ type Test {
   exampleField: Int!
 }
 
+input UpdateIdentityInput {
+  profilePicture: String!
+}
+
 input UpdateSnippetInput {
   content: String
   id: Int!
@@ -92,6 +98,9 @@ input UpdateTestInput {
   exampleField: Int
   id: Int!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type UserEntity {
   email: String!

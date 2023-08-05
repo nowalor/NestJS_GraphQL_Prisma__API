@@ -5,6 +5,9 @@ import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { IdentityEntity } from './entity/identity.entity';
 import { UpdateIdentityInput } from './dto/update-identity.input';
 import { UserEntity } from './entity/user.entity';
+// @ts-ignore
+import { GraphQLUpload, FileUpload } from 'graphql-upload';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 @Resolver()
@@ -20,7 +23,7 @@ export class IdentityResolver {
     return this.identityService.identity(context.req.user.userId, page);
   }
 
-  @Mutation(() => UserEntity)
+  @Mutation(() => String)
   updateIdentity(
     @Args('updateIdentityInput') updateIdentityInput: UpdateIdentityInput,
   ) {
