@@ -41,6 +41,8 @@ export class AuthService {
       },
     });
 
+    console.log('user', user);
+
     const { id, email, username, name } = user;
 
     const match = await bcrypt.compare(dto.password, user.password);

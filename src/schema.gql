@@ -16,6 +16,7 @@ type IdentityEntity {
   email: String!
   id: Int!
   name: String
+  profileImg: String
   snippets: PaginatedSnippetsEntity!
   username: String!
 }
@@ -102,5 +103,6 @@ type UserEntity {
   email: String!
   id: Int!
   name: String
+  profileImg: String
   username: String!
 }

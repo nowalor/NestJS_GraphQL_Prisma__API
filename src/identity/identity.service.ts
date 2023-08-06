@@ -69,7 +69,7 @@ export class IdentityService {
         id: userId,
       },
       data: {
-        profileImgUrl: `profile${ext}`,
+        profileImgUrl: `http://localhost:5000/assets/users/${userId}/profile${ext}`,
       },
     });
 

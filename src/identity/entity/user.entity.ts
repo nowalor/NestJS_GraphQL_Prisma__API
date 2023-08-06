@@ -13,4 +13,7 @@ export class UserEntity {
 
   @Field({ nullable: true })
   name?: string;
+
+  @Field({ nullable: true })
+  profileImg: string;
 }
