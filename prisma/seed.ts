@@ -3,13 +3,15 @@ import {
   ProgrammingLanguage,
   Snippet,
   User,
+  Tag,
+  SnippetHasTag,
 } from '@prisma/client';
 import { hashSync } from 'bcrypt';
+
 const prisma = new PrismaClient();
 
 function hashPassword(password: string) {
   const hash = hashSync(password, 10);
-
   return hash;
 }
 
@@ -22,6 +24,34 @@ async function main() {
   const createdUsers: User[] = [];
   const createdLanguages: ProgrammingLanguage[] = [];
   const createdSnippets: Snippet[] = [];
+
+  const tagsToCreate: Omit<Tag, 'id'>[] = [
+    { name: 'good practice' },
+    { name: 'funny' },
+    { name: 'beginner-friendly' },
+    { name: 'advanced' },
+    { name: 'optimization' },
+    { name: 'error handling' },
+    { name: 'security' },
+    { name: 'performance' },
+    { name: 'testing' },
+    { name: 'debugging' },
+    { name: 'framework' },
+    { name: 'library' },
+    { name: 'database' },
+    { name: 'API' },
+    { name: 'frontend' },
+    { name: 'backend' },
+    { name: 'mobile' },
+    { name: 'web' },
+    { name: 'UI/UX' },
+    { name: 'responsive' },
+    { name: 'animation' },
+    { name: 'design pattern' },
+    { name: 'documentation' },
+    { name: 'version control' },
+    // Add more tags as needed
+  ];
 
   const usersToCreate: Omit<User, 'id' | 'profileImgUrl'>[] = [
     {
@@ -192,21 +222,29 @@ async function main() {
     createdLanguages.push(createdLanguage);
   }
 
-  // Create a few snippets for each user and programming language
+  for (const tagData of tagsToCreate) {
+    await prisma.tag.create({
+      data: tagData,
+    });
+  }
+
   for (const user of createdUsers) {
     for (let i = 0; i < 5; i++) {
       const snippetLangIndex = Math.floor(Math.random() * 5);
-
       const snippetLang = languagesToCreate[snippetLangIndex].name;
-      console.log('test', snippetLangIndex);
-
       const codeExample = getRandomElement(codeExamples[snippetLang]);
 
       const createdSnippet = await prisma.snippet.create({
         data: {
           userId: user.id,
           programmingLanguageId: snippetLangIndex + 1,
+          title: `Snippet ${i + 1}`,
           content: codeExample as string,
+          SnippetHasTag: {
+            create: tagsToCreate
+              .filter(() => Math.random() < 0.5) // Assign random tags
+              .map((tag) => ({ tag: { connect: { name: tag.name } } })),
+          },
         },
       });
 

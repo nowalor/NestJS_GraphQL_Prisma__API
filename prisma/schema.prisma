@@ -33,6 +33,7 @@ model ProgrammingLanguage {
 model Snippet {
   id      Int    @id @default(autoincrement())
   content String
+  title   String
 
   userId                Int
   programmingLanguageId Int
@@ -40,6 +41,26 @@ model Snippet {
   // author   User @relation(fields: [authorId], references: [id])
   user                User                @relation(fields: [userId], references: [id])
   programmingLanguage ProgrammingLanguage @relation(fields: [programmingLanguageId], references: [id])
+  SnippetHasTag       SnippetHasTag[]
 
   @@map("snippets")
+}
+
+model Tag {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  SnippetHasTag SnippetHasTag[]
+
+  @@map("tags")
+}
+
+model SnippetHasTag {
+  id        Int @id @default(autoincrement())
+  snippetId Int
+  tagId     Int
+
+  snippet Snippet @relation(fields: [snippetId], references: [id])
+  tag     Tag     @relation(fields: [tagId], references: [id])
+
+  @@map("snippet_has_tag")
 }
