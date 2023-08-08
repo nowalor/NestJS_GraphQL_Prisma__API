@@ -5,6 +5,7 @@
 input CreateSnippetInput {
   content: String!
   programmingLanguageId: Int!
+  title: String!
 }
 
 input CreateTestInput {
@@ -75,7 +76,13 @@ type Snippet {
   content: String!
   id: Int!
   programmingLanguage: ProgrammingLanguage!
+  tags: [Tag!]!
   user: UserEntity!
+}
+
+type Tag {
+  id: Int!
+  name: String!
 }
 
 type Test {
@@ -91,6 +98,7 @@ input UpdateSnippetInput {
   content: String
   id: Int!
   programmingLanguageId: Int
+  title: String
 }
 
 input UpdateTestInput {

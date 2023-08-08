@@ -3,6 +3,15 @@ import { UserEntity } from 'src/identity/entity/user.entity';
 import { ProgrammingLanguage } from 'src/languages/entity/programming-language.entity';
 
 @ObjectType()
+export class Tag {
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  name: string;
+}
+
+@ObjectType()
 export class Snippet {
   @Field(() => Int)
   id: number;
@@ -15,4 +24,7 @@ export class Snippet {
 
   @Field(() => ProgrammingLanguage)
   programmingLanguage: ProgrammingLanguage;
+
+  @Field(() => [Tag])
+  tags: Tag[];
 }

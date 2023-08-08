@@ -24,6 +24,11 @@ export class SnippetsService {
       include: {
         user: true,
         programmingLanguage: true,
+        SnippetHasTag: {
+          include: {
+            tag: true,
+          },
+        },
       },
     });
   }

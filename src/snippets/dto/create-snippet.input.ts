@@ -6,5 +6,8 @@ export class CreateSnippetInput {
   programmingLanguageId: number;
 
   @Field()
+  title: string;
+
+  @Field()
   content: string;
 }
